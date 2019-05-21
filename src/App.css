@@ -1,0 +1,23 @@
+.navbar {
+  background-color: #c8a375;
+}
+
+.dropdown {
+  color: black;
+}
+
+.navitem {
+  color: black;
+}
+
+.mr-auto {
+  text-align: center;
+  margin-left: 30%;
+  font-size: 3.3em;
+}
+
+h6 {
+  font-weight: bold;
+  margin-right: 5px;
+  padding-top: 3px;
+}

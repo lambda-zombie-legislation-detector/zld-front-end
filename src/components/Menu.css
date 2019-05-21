@@ -1,0 +1,16 @@
+.menu {
+  height: 500px;
+}
+
+.top-container {
+  margin-bottom: 50px;
+  text-align: justify;
+}
+
+.bottom-container {
+  text-align: justify;
+}
+
+img {
+  border-radius: 10px;
+}
