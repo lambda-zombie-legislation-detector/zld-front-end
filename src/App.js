@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Login from './components/Login'
+import Menu from './components/Menu'
 
 
 import './App.css';
@@ -8,9 +9,15 @@ import './App.css';
 class App extends Component {
   render() {
     return (
-      <span>
-        <Login />
-      </span>
+      <div>
+        <span>
+          <Login />
+        </span>
+        <span>
+          <Menu />
+        </span>
+      </div>
+
     );
   }
 }
