@@ -8,6 +8,7 @@ class Home extends Component {
 
 
     render() {
+        const { fetchBills } = this.props
         return (
             <div >
                 <Jumbotron fluid className="jumbo">
@@ -16,7 +17,7 @@ class Home extends Component {
                     </Container>
                 </Jumbotron>
                 <span>
-                    <Menu />
+                    <Menu fetchBills={fetchBills} />
                 </span>
             </div>
 
