@@ -101,12 +101,12 @@ class Bills extends Component {
                 </Jumbotron>
 
                 {bills.map((bill, index) => (
-                    <div className="bill-container">
+                    <div className="bill-container" key={index}>
                         <Container>
                             <Row>
                                 <Col xs="6">
                                     <Row>
-                                        <h6>Short Title:</h6> {bill.short_title} key={index}
+                                        <h6>Short Title:</h6> {bill.short_title}
                                     </Row>
                                     <Row>
                                         <h6>Similarity Score:</h6> {bill.similarity_score}
@@ -127,7 +127,7 @@ class Bills extends Component {
                                     </Row>
                                     <ul>
                                         {bill.top_5_subjects.map((subject, index) => (
-                                            <li>{subject} key={index}</li>
+                                            <li key={index}>{subject} </li>
                                         ))}
                                     </ul>
                                 </Col>

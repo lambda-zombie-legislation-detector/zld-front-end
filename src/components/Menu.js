@@ -1,9 +1,9 @@
 import React from "react";
 import {
-    Dropdown,
-    DropdownToggle,
-    DropdownMenu,
-    DropdownItem,
+    // Dropdown,
+    // DropdownToggle,
+    // DropdownMenu,
+    // DropdownItem,
     Container,
     Row,
     Col
@@ -109,30 +109,30 @@ export default Menu;
 // ];
 
 
-{/* <Col sm="12" md={{ size: 6, offset: 2 }}> */ }
-{/* <Dropdown direction="right" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-                                <DropdownToggle caret>Legislative Issues</DropdownToggle>
-                                <DropdownMenu
-                                    modifiers={{
-                                        setMaxHeight: {
-                                            enabled: true,
-                                            order: 890,
-                                            fn: (data) => {
-                                                return {
-                                                    ...data,
-                                                    styles: {
-                                                        ...data.styles,
-                                                        overflow: 'auto',
-                                                        maxHeight: 300,
-                                                    },
-                                                };
-                                            },
-                                        },
-                                    }}
-                                >
-                                    <DropdownItem>Header</DropdownItem>
-                                    {menuItems.map(item => (
-                                        <DropdownItem>{item.issue}</DropdownItem>
-                                    ))}
-                                </DropdownMenu>
-                            </Dropdown> */}
+// {/* <Col sm="12" md={{ size: 6, offset: 2 }}> */ }
+//  <Dropdown direction="right" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+//                                 <DropdownToggle caret>Legislative Issues</DropdownToggle>
+//                                 <DropdownMenu
+//                                     modifiers={{
+//                                         setMaxHeight: {
+//                                             enabled: true,
+//                                             order: 890,
+//                                             fn: (data) => {
+//                                                 return {
+//                                                     ...data,
+//                                                     styles: {
+//                                                         ...data.styles,
+//                                                         overflow: 'auto',
+//                                                         maxHeight: 300,
+//                                                     },
+//                                                 };
+//                                             },
+//                                         },
+//                                     }}
+//                                 >
+//                                     <DropdownItem>Header</DropdownItem>
+//                                     {menuItems.map(item => (
+//                                         <DropdownItem>{item.issue}</DropdownItem>
+//                                     ))}
+//                                 </DropdownMenu>
+//                             </Dropdown> 
