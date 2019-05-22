@@ -12,12 +12,17 @@ class App extends Component {
 
     this.toggle = this.toggle.bind(this);
     this.state = {
-      dropdownOpen: false
+      dropdownOpen: false,
+      data: ""
     };
   }
+  fetchBills = () => {
+    fetch(`https://legicycle-api.herokuapp.com/api/search`)
+      .then(response => response.json())
+      .then(data => this.setState({ data: data }));
+    console.log(this.state.data)
 
-
-
+  }
 
 
 
@@ -28,6 +33,7 @@ class App extends Component {
   }
 
   render() {
+
 
     return (
       <div>
@@ -57,8 +63,10 @@ class App extends Component {
 
         <Switch>
           <Route exact path="/" component={Login} />
-          <Route path="/Home" component={Home} />
-          <Route path="/bills" component={Bills} />
+          <Route path="/Home" render={(props) => <Home {...props} fetchBills={this.fetchBills} />}
+          />
+          <Route path="/bills" render={(props) => <Bills {...props} data={this.state.data} />}
+          />
         </Switch>
 
       </div>
