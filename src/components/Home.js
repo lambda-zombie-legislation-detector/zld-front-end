@@ -10,7 +10,9 @@ class Home extends Component {
     render() {
         const { fetchBills } = this.props
         return (
-            <div >
+
+            <div className="home-jumbo">
+
                 <Jumbotron fluid className="jumbo">
                     <Container fluid className="container container-jumbo" style={{ backgroundImage: `url(${bgimage})`, backgroundSize: 'cover' }}>
 

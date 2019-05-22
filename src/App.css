@@ -1,13 +1,21 @@
+.page-container {
+  position: relative;
+  min-height: 100vh;
+}
+
+.content-wrap {
+  padding-bottom: 2.5rem;
+}
+
+.app-navbar {
+  height: 75px;
+  /* margin-bottom: 1rem; */
+  border-bottom: 0.5rem solid white;
+  background-color: #333f4e !important;
+}
+
 .navbar {
   background-color: #c8a375;
-}
-
-.dropdown {
-  color: black;
-}
-
-.navitem {
-  color: black;
 }
 
 .mr-auto {
@@ -20,4 +28,10 @@ h6 {
   font-weight: bold;
   margin-right: 5px;
   padding-top: 3px;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }
