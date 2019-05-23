@@ -21,7 +21,8 @@
 .mr-auto {
   text-align: center;
   margin-left: 30%;
-  font-size: 3.3em;
+  font-family: "Fredericka the Great", cursive;
+  font-size: 3.5em;
 }
 
 h6 {
@@ -35,3 +36,7 @@ footer {
   bottom: 0;
   width: 100%;
 }
+
+/* font-family: 'Special Elite', cursive;
+font-family: 'Fredericka the Great', cursive; 1
+font-family: 'IM Fell Great Primer SC', serif; */
