@@ -1,5 +1,8 @@
 import React, { Component } from "react";
-import { Jumbotron, Container, Row, Col } from "reactstrap";
+import {
+    Jumbotron, Container, Row, Col, Card, Button, CardHeader, CardFooter, CardBody,
+    CardTitle, CardText
+} from "reactstrap";
 import bgimage from "./congress.jpg";
 import './Bills.css';
 
@@ -86,6 +89,10 @@ class Bills extends Component {
                 ]
             }
         ];
+
+
+
+
         console.log(data)
         return (
             <span>
@@ -100,39 +107,39 @@ class Bills extends Component {
                     />
                 </Jumbotron>
 
-                {bills.map((bill, index) => (
+                {data && data.map((bill, index) => (
                     <div className="bill-container" key={index}>
                         <Container>
-                            <Row>
-                                <Col xs="6">
-                                    <Row>
-                                        <h6>Short Title:</h6> {bill.short_title}
-                                    </Row>
-                                    <Row>
-                                        <h6>Similarity Score:</h6> {bill.similarity_score}
-                                    </Row>
-                                    <Row>
-                                        <h6>Congress:</h6> {bill.congress}
-                                    </Row>
-                                    <Row>
-                                        <h6>Status:</h6> {bill.status}
-                                    </Row>
-                                    <Row>
-                                        <h6>Introduced:</h6> {bill.bill_link}
-                                    </Row>
-                                </Col>
-                                <Col xs="6">
-                                    <Row>
-                                        <h6>Top 5 Subjects:</h6>
-                                    </Row>
-                                    <ul>
-                                        {bill.top_5_subjects.map((subject, index) => (
-                                            <li key={index}>{subject} </li>
-                                        ))}
-                                    </ul>
-                                </Col>
+                            <Card >
+                                <Row>
 
-                            </Row>
+                                    <Col xs="4">
+
+
+                                        <CardHeader tag="h3" className="cardheader card-width" >{bill.short_title}</CardHeader>
+                                        <CardBody className="card-width">
+                                            <CardTitle className="cardheader card-width"><h6 className="cardheader">Similarity Score:</h6> {bill.similarity_score}</CardTitle>
+                                            <CardText className="cardheader card-width"><h6 className="cardheader">Congress:</h6> {bill.congress}</CardText>
+                                            <CardText className="cardheader card-width"><h6 className="cardheader">Status:</h6> {bill.status}</CardText>
+
+                                        </CardBody>
+                                        <CardFooter className="text-muted card-width"><Button>Bill Link</Button></CardFooter>
+
+                                    </Col>
+                                    <Col xs="4">
+                                        <Row>
+                                            <h6 className="cardheader top-five">Top 5 Subjects:</h6>
+                                        </Row>
+                                        <ul>
+                                            {bill.top_5_subjects.map((subject, index) => (
+                                                <li key={index} className="cardheader">{subject} </li>
+                                            ))}
+                                        </ul>
+                                    </Col>
+
+
+                                </Row>
+                            </Card>
 
                         </Container>
                     </div>
@@ -148,3 +155,19 @@ class Bills extends Component {
 
 
 export default Bills;
+
+{/* <Row>
+                                        <h6>Short Title:</h6> {bill.short_title}
+                                    </Row>
+                                    <Row>
+                                        <h6>Similarity Score:</h6> {bill.similarity_score}
+                                    </Row>
+                                    <Row>
+                                        <h6>Congress:</h6> {bill.congress}
+                                    </Row>
+                                    <Row>
+                                        <h6>Status:</h6> {bill.status}
+                                    </Row>
+                                    <Row>
+                                        <h6>Introduced:</h6> {bill.bill_link}
+                                    </Row> */}

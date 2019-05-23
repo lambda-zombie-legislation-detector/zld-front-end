@@ -1,3 +1,23 @@
 .bill-container {
   margin-bottom: 25px;
 }
+
+.card-width {
+  width: 1110px;
+}
+
+.top-five {
+  padding-top: 80px;
+}
+
+.cardheader {
+  color: black;
+}
+
+h6 {
+  display: inline;
+}
+
+.card-body {
+  margin-bottom: 30px;
+}

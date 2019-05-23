@@ -17,7 +17,14 @@ class App extends Component {
     };
   }
   fetchBills = () => {
-    fetch(`https://legicycle-api.herokuapp.com/api/search`)
+    var emptyObject = {}
+    fetch(`https://legicycle-api.herokuapp.com/api/search`, {
+      method: 'post',
+      body: JSON.stringify(emptyObject),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
       .then(response => response.json())
       .then(data => this.setState({ data: data }));
     console.log(this.state.data)
