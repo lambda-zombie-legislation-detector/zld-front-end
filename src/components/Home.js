@@ -21,6 +21,8 @@ class Home extends Component {
                 <span>
                     <Menu fetchBills={fetchBills} />
                 </span>
+
+
             </div>
 
 

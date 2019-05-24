@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Route, Link, Switch } from 'react-router-dom';
 import { DropdownMenu, Navbar, DropdownItem, NavbarBrand, Dropdown, DropdownToggle, Jumbotron, Container } from 'reactstrap';
-import Login from './components/Login';
+// import Login from './components/Login';
 import Home from './components/Home';
 import Bills from './components/Bills';
+import UserLogin from './components/not used yet/UserLogin';
 import './App.css';
 
 class App extends Component {
@@ -56,9 +57,10 @@ class App extends Component {
             </DropdownToggle>
               <DropdownMenu>
                 <DropdownItem header>Header</DropdownItem>
-                <DropdownItem ><Link className="navitem" to="/">Login</Link></DropdownItem>
+                {/* <DropdownItem ><Link className="navitem" to="/">Login</Link></DropdownItem> */}
                 <DropdownItem><Link className="navitem" to="/home">Home</Link></DropdownItem>
                 <DropdownItem><Link className="navitem" to="/bills">Bills</Link></DropdownItem>
+                <DropdownItem><Link className="navitem" to="/UserLogin">Login</Link></DropdownItem>
               </DropdownMenu>
             </Dropdown>
           </Navbar>
@@ -72,17 +74,19 @@ class App extends Component {
           {/* </nav> */}
 
           <Switch>
-            <Route exact path="/" component={Login} />
+            {/* <Route exact path="/" component={Login} /> */}
             <Route path="/Home" render={(props) => <Home {...props} fetchBills={this.fetchBills} />}
             />
             <Route path="/bills" render={(props) => <Bills {...props} data={this.state.data} />}
             />
+            <Route path="/UserLogin" render={(props) => <UserLogin {...props} data={this.state.data} />}
+            />
           </Switch>
         </div>
+        <footer>
 
-        <Navbar className="app-navbar">
+        </footer>
 
-        </Navbar>
 
       </div>
     );
