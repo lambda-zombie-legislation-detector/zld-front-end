@@ -4,6 +4,7 @@ import {
     // DropdownToggle,
     // DropdownMenu,
     // DropdownItem,
+    Input,
     Container,
     Row,
     Col
@@ -16,9 +17,16 @@ class Menu extends React.Component {
 
         this.toggle = this.toggle.bind(this);
         this.state = {
-            dropdownOpen: false
+            dropdownOpen: false,
+            search: "",
+            prevSearch: ""
         };
     }
+
+    handleChange = (e) => {
+        this.setState({ [e.target.name]: e.target.value })
+    }
+
 
     toggle() {
         this.setState(prevState => ({
@@ -27,7 +35,7 @@ class Menu extends React.Component {
     }
 
     render() {
-        const { fetchBills } = this.props
+        const { searchBills } = this.props
         return (
             <div className="menu">
                 <Container className="top-container">
@@ -44,8 +52,18 @@ class Menu extends React.Component {
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae elementum curabitur vitae nunc. Et tortor consequat id porta nibh venenatis cras sed. Pulvinar mattis nunc sed blandit libero volutpat sed cras. Mattis pellentesque id nibh tortor id aliquet lectus. Id semper risus in hendrerit gravida. Et netus et malesuada fames ac turpis egestas integer eget. Libero nunc consequat interdum varius. Lacus vel facilisis volutpat est velit egestas dui. Lectus nulla at volutpat diam ut. Turpis massa tincidunt dui ut.
                         </Col>
                         <Col sm="9">
-                            <button onClick={fetchBills}>
-                                (activate fetchBills function)
+
+                            <Input className="search-box"
+                                type="search"
+                                name="search"
+                                placeholder="Search..."
+                                value={this.state.search}
+                                onChange={e => {
+                                    this.handleChange(e);
+                                }} />
+
+                            <button className="search-button" onClick={() => searchBills(this.state.search)}>
+                                Search Bills
                             </button>
 
                         </Col>

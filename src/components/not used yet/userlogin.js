@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Route, Redirect } from 'react-router'
 import Login from '../Login'
 
 class UserLogin extends Component {
@@ -39,12 +40,14 @@ class UserLogin extends Component {
 
         return fetch(LOGIN_API_ENDPOINT, parameters)
             .then(response => {
+                if ((response.status) === 200) { }
                 return response.json();
+
             })
             .then(json => {
                 console.log(json.access_token)
                 localStorage.setItem('userTK', json.access_token);
-                if (json.access_token === '391da991-b2b8-40b7-b6e0-2c75ec0c6e30') { (() => this.setTrue)() }
+
                 return json;
             });
     }
@@ -58,9 +61,7 @@ class UserLogin extends Component {
         console.log(this.state.login)
         return (
             <div>
-                {console.log(this.state.login)}
-                <h1>Home</h1>
-                <p>{this.state.message}</p>
+
                 <Login loginUser={this.loginUser} />
             </div>
         );
