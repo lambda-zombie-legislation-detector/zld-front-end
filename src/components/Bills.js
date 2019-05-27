@@ -1,99 +1,52 @@
 import React, { Component } from "react";
 import {
-    Jumbotron, Container, Row, Col, Card, Button, CardHeader, CardFooter, CardBody,
-    CardTitle, CardText
+    Jumbotron,
+    Container,
+    Row,
+    Col,
+    Card,
+    Button,
+    CardHeader,
+    CardFooter,
+    CardBody,
+    CardTitle,
+    CardText
 } from "reactstrap";
 import bgimage from "./congress.jpg";
-import './Bills.css';
+import "./Bills.css";
 
 class Bills extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            savedSearches: [],
+            gettingSearches: false,
+            error: ""
+        }
+    }
+
+
+    saveSearch = (e) => {
+        e.preventDefault();
+        console.log('saving search')
+        this.setState({ gettingSearches: true })
+        fetch("https://legicycle-api.herokuapp.com/users/user/searches", {
+            method: "PUT",
+            headers: {
+                "Authorization": `bearer ${localStorage.getItem('userTK')}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ search: "train" })
+        }).then(res => res.json())
+            .then(data => console.log(data))
+            .catch(console.log)
+
+    }
 
     render() {
+        const { data, searchTerm, saveSearch } = this.props;
 
-        const { data } = this.props
-
-        const bills = [
-            {
-                short_title: "Tax Cuts and Jobs Act",
-                similarity_score: 86,
-                congress: 115,
-                status: "ENACTED:SIGNED",
-                bill_link:
-                    "https://www.congress.gov/bill/115th-congress/house-bill/1/text",
-                top_5_subjects: [
-                    "American Samoa",
-                    "Arctic and polar regions",
-                    "Art, artists, authorship",
-                    "Assault and harassment offenses",
-                    "Aviation and airports"
-                ]
-            },
-            {
-                short_title: "Tax Cuts and Jobs Act",
-                similarity_score: 86,
-                congress: 115,
-                status: "ENACTED:SIGNED",
-                bill_link:
-                    "https://www.congress.gov/bill/115th-congress/house-bill/1/text",
-                top_5_subjects: [
-                    "American Samoa",
-                    "Arctic and polar regions",
-                    "Art, artists, authorship",
-                    "Assault and harassment offenses",
-                    "Aviation and airports"
-                ]
-            },
-            {
-                short_title: "Tax Cuts and Jobs Act",
-                similarity_score: 86,
-                congress: 115,
-                status: "ENACTED:SIGNED",
-                bill_link:
-                    "https://www.congress.gov/bill/115th-congress/house-bill/1/text",
-                top_5_subjects: [
-                    "American Samoa",
-                    "Arctic and polar regions",
-                    "Art, artists, authorship",
-                    "Assault and harassment offenses",
-                    "Aviation and airports"
-                ]
-            },
-            {
-                short_title: "Tax Cuts and Jobs Act",
-                similarity_score: 86,
-                congress: 115,
-                status: "ENACTED:SIGNED",
-                bill_link:
-                    "https://www.congress.gov/bill/115th-congress/house-bill/1/text",
-                top_5_subjects: [
-                    "American Samoa",
-                    "Arctic and polar regions",
-                    "Art, artists, authorship",
-                    "Assault and harassment offenses",
-                    "Aviation and airports"
-                ]
-            },
-            {
-                short_title: "Tax Cuts and Jobs Act",
-                similarity_score: 86,
-                congress: 115,
-                status: "ENACTED:SIGNED",
-                bill_link:
-                    "https://www.congress.gov/bill/115th-congress/house-bill/1/text",
-                top_5_subjects: [
-                    "American Samoa",
-                    "Arctic and polar regions",
-                    "Art, artists, authorship",
-                    "Assault and harassment offenses",
-                    "Aviation and airports"
-                ]
-            }
-        ];
-
-
-
-
-        console.log(data)
+        console.log(data);
         return (
             <span>
                 <Jumbotron fluid className="jumbo">
@@ -107,46 +60,81 @@ class Bills extends Component {
                     />
                 </Jumbotron>
 
-                {data && data.map((bill, index) => (
-                    <div className="bill-container" key={index}>
-                        <Container>
-                            <Card >
-                                <Row>
 
-                                    <Col xs="4">
+                <Row>
+                    <Col xs="8">
+                        <div>
+                            {data &&
+                                data.map((bill, index) => (
+                                    <div className="bill-container" key={index}>
+                                        <Container>
+                                            <Row>
+                                                <Col xs="2">{searchTerm}</Col>
 
+                                                <Col>
+                                                    <Card>
+                                                        <Row>
+                                                            <Col xs="4">
+                                                                <CardHeader
+                                                                    tag="h3"
+                                                                    className="cardheader card-width"
+                                                                >
+                                                                    {bill.short_title}
+                                                                </CardHeader>
+                                                                <CardBody className="card-width">
+                                                                    <CardTitle className="cardheader card-width">
+                                                                        <h6 className="cardheader">
+                                                                            Similarity Score:
+                                </h6>{" "}
+                                                                        {bill.similarity_score}
+                                                                    </CardTitle>
+                                                                    <CardText className="cardheader card-width">
+                                                                        <h6 className="cardheader">Congress:</h6>{" "}
+                                                                        {bill.congress}
+                                                                    </CardText>
+                                                                    <CardText className="cardheader card-width">
+                                                                        <h6 className="cardheader">Status:</h6>{" "}
+                                                                        {bill.status}
+                                                                    </CardText>
+                                                                </CardBody>
+                                                                <CardFooter className="text-muted card-width">
+                                                                    <Button href={bill.bill_link}>Bill Link</Button>
+                                                                </CardFooter>
+                                                            </Col>
+                                                            <Col xs="4">
+                                                                <Row>
+                                                                    <h6 className="cardheader top-five">
+                                                                        Top 5 Subjects:
+                              </h6>
+                                                                </Row>
+                                                                <ul>
+                                                                    {bill.top_5_subjects.map((subject, index) => (
+                                                                        <li key={index} className="cardheader">
+                                                                            {subject}{" "}
+                                                                        </li>
+                                                                    ))}
+                                                                </ul>
+                                                            </Col>
+                                                        </Row>
+                                                    </Card>
+                                                </Col>
+                                            </Row>
+                                        </Container>
+                                    </div>
+                                ))}
+                        </div>
+                    </Col>
+                    <Col xs="4" className="column">
+                        {/* <div>
+                            Did it work? <button onClick={this.saveSearch}>save</button>
+                        </div>
+                        <div>
+                       
+                       </div> */}
 
-                                        <CardHeader tag="h3" className="cardheader card-width" >{bill.short_title}</CardHeader>
-                                        <CardBody className="card-width">
-                                            <CardTitle className="cardheader card-width"><h6 className="cardheader">Similarity Score:</h6> {bill.similarity_score}</CardTitle>
-                                            <CardText className="cardheader card-width"><h6 className="cardheader">Congress:</h6> {bill.congress}</CardText>
-                                            <CardText className="cardheader card-width"><h6 className="cardheader">Status:</h6> {bill.status}</CardText>
+                    </Col>
 
-                                        </CardBody>
-                                        <CardFooter className="text-muted card-width"><Button>Bill Link</Button></CardFooter>
-
-                                    </Col>
-                                    <Col xs="4">
-                                        <Row>
-                                            <h6 className="cardheader top-five">Top 5 Subjects:</h6>
-                                        </Row>
-                                        <ul>
-                                            {bill.top_5_subjects.map((subject, index) => (
-                                                <li key={index} className="cardheader">{subject} </li>
-                                            ))}
-                                        </ul>
-                                    </Col>
-
-
-                                </Row>
-                            </Card>
-
-                        </Container>
-                    </div>
-                ))}
-
-
-
+                </Row>
 
             </span>
         );

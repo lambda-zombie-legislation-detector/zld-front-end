@@ -1,24 +1,60 @@
-import React, { Component } from 'react';
-import { Route, Link, Switch } from 'react-router-dom';
-import { DropdownMenu, Navbar, DropdownItem, NavbarBrand, Dropdown, DropdownToggle, Jumbotron, Container } from 'reactstrap';
-import Login from './components/Login';
-import Home from './components/Home';
-import Bills from './components/Bills';
-import './App.css';
+import React, { Component, Fragment } from "react";
+import { Auth } from "aws-amplify";
+import { Link, withRouter } from "react-router-dom";
+import { LinkContainer } from "react-router-bootstrap";
+import { Navbar, Jumbotron, Nav } from "react-bootstrap";
+import Routes from "./Routes";
+
+import "./App.css";
 
 class App extends Component {
   constructor(props) {
     super(props);
-
-    this.toggle = this.toggle.bind(this);
+  
     this.state = {
-      dropdownOpen: false,
-      data: ""
+      searchData: "",
+      isAuthenticated: false,
+      isAuthenticating: true
     };
   }
-  fetchBills = () => {
+
+  async componentDidMount() {
+    try {
+      await Auth.currentSession();
+      this.userHasAuthenticated(true);
+    }
+    catch(e) {
+      if (e !== 'No current user') {
+        alert(e);
+      }
+    }
+  
+    this.setState({ isAuthenticating: false });
+  }
+  
+  
+  userHasAuthenticated = authenticated => {
+    this.setState({ isAuthenticated: authenticated });
+  }
+
+  handleLogout = async event => {
+    await Auth.signOut();
+  
+    this.userHasAuthenticated(false);
+  
+    this.props.history.push("/login");
+  }
+  
+  searchBills = searchTerm => {
+    this.setState({ searchTerm: searchTerm });
+    console.log(this.state.searchTerm)
+    this.fetchBills()
+  }
+
+  fetchBills = async () => {
+    console.log(this.state.searchTerm)
     var emptyObject = {}
-    fetch(`https://legicycle-api.herokuapp.com/api/search`, {
+    await fetch(`https://legicycle-api.herokuapp.com/api/search`, {
       method: 'post',
       body: JSON.stringify(emptyObject),
       headers: {
@@ -26,90 +62,64 @@ class App extends Component {
       }
     })
       .then(response => response.json())
-      .then(data => this.setState({ data: data }));
-    console.log(this.state.data)
+      .then(data => this.setState({ searchData: data }));
+    console.log(this.state.searchData)
 
   }
-
-
-
-  toggle() {
-    this.setState({
-      dropdownOpen: !this.state.dropdownOpen
-    });
-  }
+  
+  
+  
 
   render() {
-
-
+    const childProps = {
+      isAuthenticated: this.state.isAuthenticated,
+      userHasAuthenticated: this.userHasAuthenticated,
+      searchBills: this.searchBills,
+      searchData: this.state.searchData
+    };
+    
     return (
-      <div className="page-container">
-        <div id="content-wrap">
-          <Navbar className="app-navbar">
+      !this.state.isAuthenticating &&
+      <div className="App container">
+        <Jumbotron >
+        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+        <Navbar.Brand className="zombie"><Link to="/">Zombie Legislator Detector</Link></Navbar.Brand>
+ 
+ 
 
+
+
+          {/* <Navbar fluid >
+            <Navbar.Header>
+              <Navbar.Brand className="zombie">
+                <Link to="/">Zombie Legislator Detector</Link>
+              </Navbar.Brand>
+             
+            </Navbar.Header> */}
+          
+              <Nav >
+              {this.state.isAuthenticated
+  ? <Nav className="nav-item" onClick={this.handleLogout}>Logout</Nav>
+  : <Fragment>
+                <LinkContainer to="/signup">
+                  <Nav className="nav-item">Signup</Nav>
+                </LinkContainer>
+                <LinkContainer to="/login">
+                  <Nav className="nav-item">Login</Nav>
+                </LinkContainer>
+                </Fragment>
+                }
+              </Nav>
+         
           </Navbar>
-          <Navbar color="black" light className="navbar">
-            <NavbarBrand href="/" className="mr-auto">Zombie Legislation Detector</NavbarBrand>
-            <Dropdown nav isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-              <DropdownToggle caret className="Select">
-                Dropdown
-            </DropdownToggle>
-              <DropdownMenu>
-                <DropdownItem header>Header</DropdownItem>
-                <DropdownItem ><Link className="navitem" to="/">Login</Link></DropdownItem>
-                <DropdownItem><Link className="navitem" to="/home">Home</Link></DropdownItem>
-                <DropdownItem><Link className="navitem" to="/bills">Bills</Link></DropdownItem>
-              </DropdownMenu>
-            </Dropdown>
-          </Navbar>
+        </Jumbotron>
+        <Routes childProps={childProps} />
 
-          {/* <nav className="navbar navbar-light">
-          <ul className="nav navbar-nav">
-            <li><Link to="/">Login</Link></li>
-            <li><Link to="/menu">Menu</Link></li>
-            <li><Link to="/products">Products</Link></li> */}
-          {/* </ul> */}
-          {/* </nav> */}
-
-          <Switch>
-            <Route exact path="/" component={Login} />
-            <Route path="/Home" render={(props) => <Home {...props} fetchBills={this.fetchBills} />}
-            />
-            <Route path="/bills" render={(props) => <Bills {...props} data={this.state.data} />}
-            />
-          </Switch>
-        </div>
-
-        <Navbar className="app-navbar">
-
-        </Navbar>
 
       </div>
     );
   }
 }
 
-export default App;
-
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
-
+export default withRouter(App);
 

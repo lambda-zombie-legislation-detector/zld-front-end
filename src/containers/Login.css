@@ -1,0 +1,31 @@
+.Login {
+  margin: 0 auto;
+  width: 400px;
+  border: 12px ridge #c8a375;
+  border-radius: 40px 0px 38px 0px;
+  margin-top: 50px;
+  padding-bottom: 5px;
+}
+
+h2 {
+  color: #343f4d;
+}
+
+.input-box {
+  border-color: #c8a375;
+}
+
+.button {
+  background-color: #c8a375;
+}
+
+@media all and (min-width: 480px) {
+  .Login {
+    padding: 60px 0;
+  }
+
+  .Login form {
+    margin: 0 auto;
+    max-width: 320px;
+  }
+}

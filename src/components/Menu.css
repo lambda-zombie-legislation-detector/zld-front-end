@@ -1,5 +1,5 @@
 .top-container {
-  margin-bottom: 50px;
+  /* margin-bottom: 50px; */
   text-align: justify;
 }
 
@@ -9,4 +9,12 @@
 
 img {
   border-radius: 10px;
+}
+
+.search-button {
+  width: 200px;
+}
+
+.search-box {
+  width: 200px;
 }
